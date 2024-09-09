@@ -1,0 +1,4 @@
+export const breakpoints = {
+  tablet: "(min-width: 768px)",
+  desktop: "(min-width: 1440px)",
+};
