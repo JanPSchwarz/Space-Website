@@ -1,10 +1,12 @@
 "use client";
 
 import styled from "styled-components";
-import Logo from "../public/shared/logo.svg";
+import Logo from "../..//public/shared/logo.svg";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import Navigation from "./Navigation.js";
-import { breakpoints } from "@/utils/breakpoints";
+import { breakpoints } from "../../utils/breakpoints";
 
 const StyledHeader = styled.header`
   position: relative;
@@ -38,6 +40,7 @@ const StyledHeader = styled.header`
 const StyledLogo = styled(Logo)`
   transform: scale(0.8);
   align-self: center;
+  cursor: pointer;
 
   @media ${breakpoints.tablet} {
     transform: none;
@@ -46,9 +49,18 @@ const StyledLogo = styled(Logo)`
 `;
 
 export default function Header() {
+  const path = usePathname();
+  const router = useRouter();
+
   return (
     <StyledHeader>
-      <StyledLogo />
+      <StyledLogo
+        onClick={() => {
+          if (path !== "/") {
+            router.push("/");
+          }
+        }}
+      />
       <Navigation />
     </StyledHeader>
   );

@@ -1,31 +1,12 @@
 "use client";
 import styled from "styled-components";
-import mobileBackground from "../public/home/background-home-desktop.jpg";
-import tabletBackground from "../public/home/background-home-tablet.jpg";
-import laptopBackground from "../public/home/background-home-desktop-horizontal.jpg";
+import mobileBackground from "/public/home/background-home-desktop.jpg";
+import tabletBackground from "/public/home/background-home-tablet.jpg";
+import desktopBackground from "/public/home/background-home-desktop-horizontal.jpg";
 import { useState } from "react";
-import { breakpoints } from "@/utils/breakpoints";
-
-const Background = styled.div`
-  min-height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-image: url(${mobileBackground.src});
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
-  background-position: center;
-
-  @media ${breakpoints.tablet} {
-    background-image: url(${tabletBackground.src});
-  }
-
-  @media ${breakpoints.desktop} {
-    background-image: url(${laptopBackground.src});
-  }
-`;
+import { breakpoints } from "/utils/breakpoints";
+import Link from "next/link";
+import Background from "../components/Background.js";
 
 const StyledHeroWrapper = styled.div`
   display: flex;
@@ -34,10 +15,6 @@ const StyledHeroWrapper = styled.div`
   justify-content: space-evenly;
   gap: 5rem;
   min-height: calc(100vh - 120px);
-
-  @media ${breakpoints.tablet} {
-    gap: 7rem;
-  }
 
   @media ${breakpoints.tablet} and (orientation: landscape) {
     margin: 3rem 0;
@@ -103,23 +80,25 @@ const StyledParagraph = styled.p`
   }
 `;
 
-const StyledButtonWrapper = styled.div`
+const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const StyledButton = styled.button`
-  font: var(--font-preset-4-small);
   width: 144px;
   height: 144px;
   border-radius: 50%;
-  border: none;
-  color: black;
   background-color: var(--bright);
   cursor: pointer;
   box-shadow: ${({ $hover }) =>
     $hover && "0 0 1px 50px rgba(255, 255, 255, 0.3)"};
+  font: var(--font-preset-4-small);
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  text-decoration: none;
+  color: black;
 
   @media ${breakpoints.tablet} {
     font: var(--font-preset-4-big);
@@ -133,7 +112,11 @@ export default function Home() {
 
   return (
     <>
-      <Background />
+      <Background
+        mobileSrc={mobileBackground.src}
+        tabletSrc={tabletBackground.src}
+        desktopSrc={desktopBackground.src}
+      />
       <StyledHeroWrapper>
         <StyledTextWrapper>
           <StyledTagline>SO, YOU WANT TO TRAVEL TO</StyledTagline>
@@ -145,22 +128,22 @@ export default function Home() {
             world experience!
           </StyledParagraph>
         </StyledTextWrapper>
-        <StyledButtonWrapper>
-          <StyledButton
-            $hover={showButtonShadow}
-            onPointerOver={(event) => {
-              if (event.pointerType === "mouse") {
-                setShowButtonShadow(true);
-              }
-            }}
-            onPointerOut={(event) => {
-              if (event.pointerType === "mouse") {
-                setShowButtonShadow(false);
-              }
-            }}>
-            EXPLORE
-          </StyledButton>
-        </StyledButtonWrapper>
+
+        <StyledLink
+          href={"/destination"}
+          $hover={showButtonShadow}
+          onPointerOver={(event) => {
+            if (event.pointerType === "mouse") {
+              setShowButtonShadow(true);
+            }
+          }}
+          onPointerOut={(event) => {
+            if (event.pointerType === "mouse") {
+              setShowButtonShadow(false);
+            }
+          }}>
+          EXPLORE
+        </StyledLink>
       </StyledHeroWrapper>
     </>
   );

@@ -1,4 +1,4 @@
-import StyledComponentsRegistry from "../lib/registry.js";
+import StyledComponentsRegistry from "../../lib/registry.js";
 import GlobalStyles from "../styles.js";
 import Header from "../../src/components/Header.js";
 

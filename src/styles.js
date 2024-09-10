@@ -59,7 +59,7 @@ overflow-x: hidden;
 }
 
 body {
-    background-color: black;
+    background-color: #323232;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

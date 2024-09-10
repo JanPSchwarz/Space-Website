@@ -1,11 +1,13 @@
 "use client";
 
 import styled, { css } from "styled-components";
-import Burgermenu from "../public/shared/icon-hamburger.svg";
-import CloseIcon from "../public/shared/icon-close.svg";
+import Burgermenu from "../../public/shared/icon-hamburger.svg";
+import CloseIcon from "../../public/shared/icon-close.svg";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { breakpoints } from "@/utils/breakpoints";
+import { breakpoints } from "../../utils/breakpoints";
+import navigation from "../../lib/navigation.json";
+import Link from "next/link";
 
 const StyledBurgerMenu = styled(Burgermenu)`
   align-self: center;
@@ -14,13 +16,14 @@ const StyledBurgerMenu = styled(Burgermenu)`
 const StyledWrapper = styled.div`
   width: 60vw;
   min-height: 100vh;
-  height: ${({ $height }) => `${$height}px`};
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
+  -webkit-backdrop-filter: blur(40px) contrast(105%);
   backdrop-filter: blur(40px) contrast(105%);
   transform: ${({ $show }) => ($show ? "translateX(0)" : "translateX(100%)")};
   transition: transform 500ms ease-in-out;
+  z-index: 1;
 
   & > nav > a {
     display: block;
@@ -40,12 +43,11 @@ const StyledNav = styled.nav`
   flex-direction: column;
   align-items: stretch;
   gap: 1.5rem;
-  max-width: 800px;
 
   @media ${breakpoints.tablet} {
     margin: 0;
     flex-direction: row;
-    width: 80%;
+    min-width: 60%;
     justify-content: flex-end;
     padding: 0 2rem;
     background-color: rgba(255, 255, 255, 0.1);
@@ -53,20 +55,19 @@ const StyledNav = styled.nav`
   }
 `;
 
-const StyledNavLink = styled.a`
+const StyledNavLink = styled(Link)`
   position: relative;
+  text-decoration: none;
+  color: var(--bright);
   font: var(--font-preset-8-big);
   letter-spacing: 2.7px;
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: box-shadow 300ms;
 
   &:hover {
     box-shadow: ${({ $active }) =>
-      $active
-        ? "inset -4px 0 0 0 white"
-        : "inset -4px 0 0 0 rgba(255, 255, 255, 0.5)"};
+      $active ? "none" : "inset -4px 0 0 0 rgba(255, 255, 255, 0.5)"};
   }
 
   & > span {
@@ -76,7 +77,23 @@ const StyledNavLink = styled.a`
   ${({ $active }) =>
     $active &&
     css`
-      box-shadow: inset -4px 0 0 0 white;
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 4px;
+        background-color: white;
+      }
+
+      @media ${breakpoints.tablet} {
+        &:after {
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 4px;
+        }
+      }
     `}
 
   @media ${breakpoints.tablet} {
@@ -99,11 +116,11 @@ const StyledNavLink = styled.a`
 export default function Navigation() {
   const [showNav, setShowNav] = useState(false);
   const [isMobile, setisMobile] = useState(true);
-  const [documemtHeight, setDocumentHeight] = useState();
+
+  const currentPath = usePathname();
 
   useEffect(() => {
     function isMobile() {
-      setDocumentHeight(document.documentElement.scrollHeight);
       if (window.innerWidth >= 768) setisMobile(false);
       else {
         setisMobile(true);
@@ -119,7 +136,20 @@ export default function Navigation() {
     };
   }, []);
 
-  const path = usePathname();
+  useEffect(() => {
+    setShowNav(false);
+  }, [currentPath]);
+
+  function LinkList() {
+    const links = navigation.map(({ name, number, path }) => (
+      <StyledNavLink key={name} href={path} $active={currentPath === path}>
+        <span>{number}</span>
+        {name}
+      </StyledNavLink>
+    ));
+
+    return links;
+  }
 
   return (
     <>
@@ -130,42 +160,20 @@ export default function Navigation() {
               setShowNav(true);
             }}
           />
-          <StyledWrapper $show={showNav} $height={documemtHeight}>
+          <StyledWrapper $show={showNav}>
             <StyledCloseIcon
               onClick={() => {
                 setShowNav(false);
               }}
             />
             <StyledNav>
-              <StyledNavLink $active={path === "/"}>
-                <span>00</span> HOME
-              </StyledNavLink>
-              <StyledNavLink>
-                <span>01</span> DESTINATION
-              </StyledNavLink>
-              <StyledNavLink>
-                <span>02</span> CREW
-              </StyledNavLink>
-              <StyledNavLink>
-                <span>03</span> TECHNOLOGY
-              </StyledNavLink>
+              <LinkList />
             </StyledNav>
           </StyledWrapper>
         </>
       ) : (
         <StyledNav>
-          <StyledNavLink $active={path === "/"}>
-            <span>00</span> HOME
-          </StyledNavLink>
-          <StyledNavLink>
-            <span>01</span> DESTINATION
-          </StyledNavLink>
-          <StyledNavLink>
-            <span>02</span> CREW
-          </StyledNavLink>
-          <StyledNavLink>
-            <span>03</span> TECHNOLOGY
-          </StyledNavLink>
+          <LinkList />
         </StyledNav>
       )}
     </>
