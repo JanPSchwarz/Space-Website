@@ -23,7 +23,7 @@ const StyledHeader = styled.header`
   }
 
   @media ${breakpoints.desktop} {
-    top: 50px;
+    margin-top: 50px;
 
     &:after {
       content: "";

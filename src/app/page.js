@@ -14,7 +14,7 @@ const StyledHeroWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   gap: 5rem;
-  min-height: calc(100vh - 120px);
+  height: calc(100vh - 150px);
 
   @media ${breakpoints.tablet} and (orientation: landscape) {
     margin: 3rem 0;
@@ -26,8 +26,11 @@ const StyledHeroWrapper = styled.div`
     align-items: flex-end;
     width: 90vw;
     max-width: 1200px;
-    min-height: 80vh;
+    height: calc(100vh - 200px);
+    min-height: auto;
+    max-height: 1200px;
     margin: 0;
+    padding-bottom: 3rem;
   }
 `;
 

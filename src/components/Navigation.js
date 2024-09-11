@@ -72,6 +72,7 @@ const StyledNavLink = styled(Link)`
 
   & > span {
     font-weight: bold;
+    margin-right: 0.5rem;
   }
 
   ${({ $active }) =>
@@ -98,11 +99,6 @@ const StyledNavLink = styled(Link)`
 
   @media ${breakpoints.tablet} {
     gap: 0.3rem;
-    ${({ $active }) =>
-      $active &&
-      css`
-        box-shadow: inset 0 -4px 0 0 white;
-      `}
 
     &:hover {
       box-shadow: ${({ $active }) =>
