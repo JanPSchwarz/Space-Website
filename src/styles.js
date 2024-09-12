@@ -79,6 +79,10 @@ input, button, textarea, select {
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
+button, a, svg {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 #root, #__next {
   isolation: isolate;
 }

@@ -170,7 +170,7 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    opacity: 50%;
+    opacity: ${({ $active }) => !$active && "50%"};
   }
 
   @media ${breakpoints.desktop} {
@@ -204,6 +204,43 @@ export default function Crew() {
   const [crewMember, setCrewMember] = useState("Douglas Hurley");
   const [isVisible, setIsVisable] = useState(true);
 
+  const [touchStart, setTouchStart] = useState();
+  const [touchEnd, setTouchEnd] = useState();
+
+  const crewArray = data.crew.map((member) => member.name);
+  const index = crewArray.findIndex((member) => member === crewMember);
+
+  function onTouchStart(event) {
+    setTouchEnd(null);
+    setTouchStart(event.targetTouches[0].clientX);
+  }
+
+  function onTouchMove(event) {
+    setTouchEnd(event.targetTouches[0].clientX);
+  }
+
+  function onTouchEnd() {
+    const desiredSwipeDistance = 100;
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > desiredSwipeDistance;
+    const isRightSwipe = distance < -desiredSwipeDistance;
+    if (isRightSwipe) {
+      handleAnimation();
+
+      setTimeout(() => {
+        setCrewMember(crewArray[(((index - 1) % 4) + 4) % 4]);
+      }, 100);
+    }
+    if (isLeftSwipe) {
+      handleAnimation();
+
+      setTimeout(() => {
+        setCrewMember(crewArray[(((index + 1) % 4) + 4) % 4]);
+      }, 100);
+    }
+  }
+
   function handleAnimation() {
     setIsVisable(false);
 
@@ -215,7 +252,17 @@ export default function Crew() {
   return (
     <>
       <Background mobileSrc={background.src} />
-      <StyledMainContentWrapper>
+      <title>SpaceTourism | Crew</title>
+      <StyledMainContentWrapper
+        onTouchStart={(event) => {
+          onTouchStart(event);
+        }}
+        onTouchMove={(event) => {
+          onTouchMove(event);
+        }}
+        onTouchEnd={() => {
+          onTouchEnd();
+        }}>
         <StyledParagraph>
           <span>02</span>MEET YOUR CREW
         </StyledParagraph>

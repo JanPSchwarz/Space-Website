@@ -3,8 +3,7 @@ import GlobalStyles from "../styles.js";
 import Header from "../../src/components/Header.js";
 
 export const metadata = {
-  title: "Frontend Mentor | Space tourism website",
-  description: "space tourism",
+  title: "SpaceTourism | Home",
 };
 
 export default function RootLayout({ children }) {

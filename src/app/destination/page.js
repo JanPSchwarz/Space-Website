@@ -249,6 +249,7 @@ export default function Destinations() {
 
   return (
     <>
+      <title>SpaceTourism | Destination</title>
       <Background mobileSrc={background.src} />
       <StyledMainContentWrapper>
         {data.destinations

@@ -14,7 +14,7 @@ const StyledHeroWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   gap: 5rem;
-  height: calc(100vh - 150px);
+  min-height: calc(100vh - 150px);
 
   @media ${breakpoints.tablet} and (orientation: landscape) {
     margin: 3rem 0;

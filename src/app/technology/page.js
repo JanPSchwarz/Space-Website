@@ -201,6 +201,7 @@ export default function Technology() {
 
   return (
     <>
+      <title>SpaceTourism | Technology</title>
       <Background mobileSrc={background.src} />
       <StyledParagraph>
         <span>03</span> SPACE LAUNCH 101
