@@ -191,6 +191,53 @@ export default function Technology() {
   const [technology, setTechnology] = useState("Launch vehicle");
   const [isVisible, setIsVisible] = useState(true);
 
+  const [touchStart, setTouchStart] = useState();
+  const [touchEnd, setTouchEnd] = useState();
+
+  const techArray = data.technology.map((tech) => tech.name);
+  const index = techArray.findIndex((tech) => tech === technology);
+
+  function onTouchStart(event) {
+    setTouchEnd(null);
+    setTouchStart(event.targetTouches[0].clientX);
+  }
+
+  function onTouchMove(event) {
+    setTouchEnd(event.targetTouches[0].clientX);
+  }
+
+  function onTouchEnd() {
+    const desiredSwipeDistance = 100;
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > desiredSwipeDistance;
+    const isRightSwipe = distance < -desiredSwipeDistance;
+    if (isRightSwipe) {
+      handleAnimation();
+
+      setTimeout(() => {
+        setTechnology(
+          techArray[
+            (((index - 1) % techArray.length) + techArray.length) %
+              techArray.length
+          ]
+        );
+      }, 100);
+    }
+    if (isLeftSwipe) {
+      handleAnimation();
+
+      setTimeout(() => {
+        setTechnology(
+          techArray[
+            (((index + 1) % techArray.length) + techArray.length) %
+              techArray.length
+          ]
+        );
+      }, 100);
+    }
+  }
+
   function handleAnimation() {
     setIsVisible(false);
 
@@ -206,7 +253,17 @@ export default function Technology() {
       <StyledParagraph>
         <span>03</span> SPACE LAUNCH 101
       </StyledParagraph>
-      <StyledMainContentWrapper $isVisible={isVisible}>
+      <StyledMainContentWrapper
+        onTouchStart={(event) => {
+          onTouchStart(event);
+        }}
+        onTouchMove={(event) => {
+          onTouchMove(event);
+        }}
+        onTouchEnd={() => {
+          onTouchEnd();
+        }}
+        $isVisible={isVisible}>
         {data.technology
           .filter(({ name }) => name === technology)
           .map(({ name, images, description }) => (

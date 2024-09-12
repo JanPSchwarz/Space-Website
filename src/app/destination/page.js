@@ -239,6 +239,60 @@ export default function Destinations() {
   const [destination, setDestination] = useState("Moon");
   const [isVisible, setIsVisible] = useState(true);
 
+  const [touchStart, setTouchStart] = useState();
+  const [touchEnd, setTouchEnd] = useState();
+
+  const destinationArray = data.destinations.map(
+    (destination) => destination.name
+  );
+  const index = destinationArray.findIndex(
+    (currentDestination) => currentDestination === destination
+  );
+
+  function onTouchStart(event) {
+    setTouchEnd(null);
+    setTouchStart(event.targetTouches[0].clientX);
+  }
+
+  function onTouchMove(event) {
+    setTouchEnd(event.targetTouches[0].clientX);
+  }
+
+  function onTouchEnd() {
+    const desiredSwipeDistance = 100;
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > desiredSwipeDistance;
+    const isRightSwipe = distance < -desiredSwipeDistance;
+
+    if (isRightSwipe) {
+      handleAnimation();
+
+      setTimeout(() => {
+        setDestination(
+          destinationArray[
+            (((index - 1) % destinationArray.length) +
+              destinationArray.length) %
+              destinationArray.length
+          ]
+        );
+      }, 100);
+    }
+    if (isLeftSwipe) {
+      handleAnimation();
+
+      setTimeout(() => {
+        setDestination(
+          destinationArray[
+            (((index + 1) % destinationArray.length) +
+              destinationArray.length) %
+              destinationArray.length
+          ]
+        );
+      }, 100);
+    }
+  }
+
   function handleAnimation() {
     setIsVisible(false);
 
@@ -251,7 +305,16 @@ export default function Destinations() {
     <>
       <title>SpaceTourism | Destination</title>
       <Background mobileSrc={background.src} />
-      <StyledMainContentWrapper>
+      <StyledMainContentWrapper
+        onTouchStart={(event) => {
+          onTouchStart(event);
+        }}
+        onTouchMove={(event) => {
+          onTouchMove(event);
+        }}
+        onTouchEnd={() => {
+          onTouchEnd();
+        }}>
         {data.destinations
           .filter(({ name }) => name === destination)
           .map(({ name, images, description, distance, travel }) => (

@@ -229,14 +229,24 @@ export default function Crew() {
       handleAnimation();
 
       setTimeout(() => {
-        setCrewMember(crewArray[(((index - 1) % 4) + 4) % 4]);
+        setCrewMember(
+          crewArray[
+            (((index - 1) % crewArray.length) + crewArray.length) %
+              crewArray.length
+          ]
+        );
       }, 100);
     }
     if (isLeftSwipe) {
       handleAnimation();
 
       setTimeout(() => {
-        setCrewMember(crewArray[(((index + 1) % 4) + 4) % 4]);
+        setCrewMember(
+          crewArray[
+            (((index + 1) % crewArray.length) + crewArray.length) %
+              crewArray.length
+          ]
+        );
       }, 100);
     }
   }
