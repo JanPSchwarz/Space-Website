@@ -1,6 +1,6 @@
 "use client";
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import data from "../../../lib/data.json";
 import Background from "../../components/Background.js";
 import background from "/public/crew/background-crew-desktop.jpg";
@@ -80,6 +80,7 @@ const StyledMainSectionWrapper = styled.div`
   @media ${breakpoints.desktop} {
     flex-direction: row;
     justify-content: space-between;
+    align-items: stretch;
   }
 `;
 
@@ -88,15 +89,11 @@ const StyledSubSectionWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: 100%;
 
   @media ${breakpoints.desktop} {
     text-align: left;
     justify-content: center;
-
-    :last-child {
-      align-self: flex-end;
-    }
+    position: relative;
   }
 `;
 
@@ -156,6 +153,8 @@ const StyledButtonWrapper = styled.div`
 
   @media ${breakpoints.desktop} {
     width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 `;
 
@@ -168,6 +167,11 @@ const StyledButton = styled.button`
   height: 8px;
   opacity: ${({ $active }) => ($active ? "100%" : "20%")};
   transition: opacity 100ms ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 50%;
+  }
 
   @media ${breakpoints.desktop} {
     width: 15px;
@@ -191,10 +195,8 @@ const StyledImageWrapper = styled.div`
   }
 
   @media ${breakpoints.desktop} {
-    max-height: 600px;
+    min-height: 600px;
     min-width: 600px;
-    width: 600px;
-    height: 600px;
   }
 `;
 
@@ -228,6 +230,7 @@ export default function Crew() {
                   </StyledTagLine>
                   <StyledMainHeading>{name.toUpperCase()}</StyledMainHeading>
                   <StyledDescription>{bio}</StyledDescription>
+
                   <StyledButtonWrapper>
                     {data.crew.map((crew, index) => (
                       <StyledButton
