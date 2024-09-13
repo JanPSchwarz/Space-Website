@@ -274,7 +274,7 @@ export default function Crew() {
           onTouchEnd();
         }}>
         <StyledParagraph>
-          <span>02</span>MEET YOUR CREW
+          <span>03</span>MEET YOUR CREW
         </StyledParagraph>
         <StyledMainSectionWrapper $isVisible={isVisible}>
           {data.crew

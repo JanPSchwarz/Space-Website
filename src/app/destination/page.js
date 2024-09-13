@@ -320,7 +320,7 @@ export default function Destinations() {
           .map(({ name, images, description, distance, travel }) => (
             <>
               <StyledParagraph>
-                <span>01</span> PICK YOUR DESTINATION
+                <span>02</span> PICK YOUR DESTINATION
               </StyledParagraph>
               <StyledSectionWrapper $isVisible={isVisible}>
                 <StyledSubSectionWrapper>

@@ -251,7 +251,7 @@ export default function Technology() {
       <title>SpaceTourism | Technology</title>
       <Background mobileSrc={background.src} />
       <StyledParagraph>
-        <span>03</span> SPACE LAUNCH 101
+        <span>04</span> SPACE LAUNCH 101
       </StyledParagraph>
       <StyledMainContentWrapper
         onTouchStart={(event) => {
