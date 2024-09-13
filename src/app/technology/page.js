@@ -7,6 +7,7 @@ import background from "/public/technology/background-technology-desktop.jpg";
 import { useState } from "react";
 import Image from "next/image";
 import { breakpoints } from "../../../utils/breakpoints";
+import AnimateMainContent from "@/components/AnimateMainContent.js";
 
 const StyledMainContentWrapper = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ const StyledParagraph = styled.p`
   letter-spacing: 2.7px;
   color: var(--bright);
   margin: 1.5rem 0;
-  max-width: 600px;
+  text-align: center;
 
   & > span {
     font-weight: bold;
@@ -49,13 +50,15 @@ const StyledParagraph = styled.p`
 
   @media ${breakpoints.tablet} {
     font: var(--font-preset-5-medium);
-    margin: 2.5rem 0;
+    margin: 2.5rem 2rem;
     text-align: left;
     width: 100%;
+    max-width: 600px;
   }
 
   @media ${breakpoints.desktop} {
     font: var(--font-preset-5-big);
+    margin: 2.5rem 0;
     max-width: 1200px;
   }
 `;
@@ -116,6 +119,7 @@ const StyledButton = styled.button`
     $isActive ? "var(--bright)" : "transparent"};
   cursor: pointer;
   transition: border-color 200ms;
+  padding: unset;
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.6);
@@ -250,59 +254,61 @@ export default function Technology() {
     <>
       <title>SpaceTourism | Technology</title>
       <Background mobileSrc={background.src} />
-      <StyledParagraph>
-        <span>04</span> SPACE LAUNCH 101
-      </StyledParagraph>
-      <StyledMainContentWrapper
-        onTouchStart={(event) => {
-          onTouchStart(event);
-        }}
-        onTouchMove={(event) => {
-          onTouchMove(event);
-        }}
-        onTouchEnd={() => {
-          onTouchEnd();
-        }}
-        $isVisible={isVisible}>
-        {data.technology
-          .filter(({ name }) => name === technology)
-          .map(({ name, images, description }) => (
-            <>
-              <StyledImageWrapper>
-                <Image
-                  alt={`Photo of ${name}`}
-                  src={images.portrait}
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "100% 65%" }}
-                />
-              </StyledImageWrapper>
-              <StyledSubContentWrapper>
-                <StyledButtonWrapper>
-                  {data.technology.map((tech, index) => (
-                    <StyledButton
-                      $isActive={tech.name === technology}
-                      key={index}
-                      onClick={() => {
-                        if (tech.name !== technology) {
-                          handleAnimation();
-                          setTimeout(() => {
-                            setTechnology(tech.name);
-                          }, 200);
-                        }
-                      }}>
-                      {index + 1}
-                    </StyledButton>
-                  ))}
-                </StyledButtonWrapper>
-                <StyledTextWrapper>
-                  <StyledTagLine>THE TERMINOLOGY...</StyledTagLine>
-                  <StyledHeading>{name.toUpperCase()}</StyledHeading>
-                  <StyledDescription>{description}</StyledDescription>
-                </StyledTextWrapper>
-              </StyledSubContentWrapper>
-            </>
-          ))}
-      </StyledMainContentWrapper>
+      <AnimateMainContent>
+        <StyledParagraph>
+          <span>04</span> SPACE LAUNCH 101
+        </StyledParagraph>
+        <StyledMainContentWrapper
+          onTouchStart={(event) => {
+            onTouchStart(event);
+          }}
+          onTouchMove={(event) => {
+            onTouchMove(event);
+          }}
+          onTouchEnd={() => {
+            onTouchEnd();
+          }}
+          $isVisible={isVisible}>
+          {data.technology
+            .filter(({ name }) => name === technology)
+            .map(({ name, images, description }) => (
+              <>
+                <StyledImageWrapper>
+                  <Image
+                    alt={`Photo of ${name}`}
+                    src={images.portrait}
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "100% 65%" }}
+                  />
+                </StyledImageWrapper>
+                <StyledSubContentWrapper>
+                  <StyledButtonWrapper>
+                    {data.technology.map((tech, index) => (
+                      <StyledButton
+                        $isActive={tech.name === technology}
+                        key={index}
+                        onClick={() => {
+                          if (tech.name !== technology) {
+                            handleAnimation();
+                            setTimeout(() => {
+                              setTechnology(tech.name);
+                            }, 200);
+                          }
+                        }}>
+                        {index + 1}
+                      </StyledButton>
+                    ))}
+                  </StyledButtonWrapper>
+                  <StyledTextWrapper>
+                    <StyledTagLine>THE TERMINOLOGY...</StyledTagLine>
+                    <StyledHeading>{name.toUpperCase()}</StyledHeading>
+                    <StyledDescription>{description}</StyledDescription>
+                  </StyledTextWrapper>
+                </StyledSubContentWrapper>
+              </>
+            ))}
+        </StyledMainContentWrapper>
+      </AnimateMainContent>
     </>
   );
 }

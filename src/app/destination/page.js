@@ -7,6 +7,7 @@ import Image from "next/image";
 import background from "/public/destination/background-destination-desktop.jpg";
 import Background from "../../components/Background.js";
 import { breakpoints } from "../../../utils/breakpoints";
+import AnimateMainContent from "@/components/AnimateMainContent.js";
 
 const StyledMainContentWrapper = styled.div`
   min-height: calc(100vh - 150px);
@@ -305,66 +306,72 @@ export default function Destinations() {
     <>
       <title>SpaceTourism | Destination</title>
       <Background mobileSrc={background.src} />
-      <StyledMainContentWrapper
-        onTouchStart={(event) => {
-          onTouchStart(event);
-        }}
-        onTouchMove={(event) => {
-          onTouchMove(event);
-        }}
-        onTouchEnd={() => {
-          onTouchEnd();
-        }}>
-        {data.destinations
-          .filter(({ name }) => name === destination)
-          .map(({ name, images, description, distance, travel }) => (
-            <>
-              <StyledParagraph>
-                <span>02</span> PICK YOUR DESTINATION
-              </StyledParagraph>
-              <StyledSectionWrapper $isVisible={isVisible}>
-                <StyledSubSectionWrapper>
-                  <StyledImageWrapper>
-                    <Image src={images.png} alt={`Photo of the ${name}`} fill />
-                  </StyledImageWrapper>
-                </StyledSubSectionWrapper>
-                <StyledSubSectionWrapper>
-                  <StyledButtonWrapper key={name}>
-                    {data.destinations.map(({ name }) => (
-                      <StyledButton
-                        $active={name === destination}
-                        key={name}
-                        onClick={() => {
-                          if (name !== destination) {
-                            handleAnimation();
+      <AnimateMainContent>
+        <StyledMainContentWrapper
+          onTouchStart={(event) => {
+            onTouchStart(event);
+          }}
+          onTouchMove={(event) => {
+            onTouchMove(event);
+          }}
+          onTouchEnd={() => {
+            onTouchEnd();
+          }}>
+          {data.destinations
+            .filter(({ name }) => name === destination)
+            .map(({ name, images, description, distance, travel }) => (
+              <>
+                <StyledParagraph>
+                  <span>02</span> PICK YOUR DESTINATION
+                </StyledParagraph>
+                <StyledSectionWrapper $isVisible={isVisible}>
+                  <StyledSubSectionWrapper>
+                    <StyledImageWrapper>
+                      <Image
+                        src={images.png}
+                        alt={`Photo of the ${name}`}
+                        fill
+                      />
+                    </StyledImageWrapper>
+                  </StyledSubSectionWrapper>
+                  <StyledSubSectionWrapper>
+                    <StyledButtonWrapper key={name}>
+                      {data.destinations.map(({ name }) => (
+                        <StyledButton
+                          $active={name === destination}
+                          key={name}
+                          onClick={() => {
+                            if (name !== destination) {
+                              handleAnimation();
 
-                            setTimeout(() => {
-                              setDestination(`${name}`);
-                            }, 200);
-                          }
-                        }}>
-                        {name.toUpperCase()}
-                      </StyledButton>
-                    ))}
-                  </StyledButtonWrapper>
-                  <StyledMainHeading>{name.toUpperCase()}</StyledMainHeading>
-                  <StyledDescription>{description}</StyledDescription>
-                  <StyledHorizontalLine />
-                  <StyledFactsWrapper>
-                    <StyledFactBox>
-                      <StyledFactHeading>AVG. DISTANCE</StyledFactHeading>
-                      <StyedFactText>{distance}</StyedFactText>
-                    </StyledFactBox>
-                    <StyledFactBox>
-                      <StyledFactHeading>EST. TRAVEL TIME</StyledFactHeading>
-                      <StyedFactText>{travel}</StyedFactText>
-                    </StyledFactBox>
-                  </StyledFactsWrapper>
-                </StyledSubSectionWrapper>
-              </StyledSectionWrapper>
-            </>
-          ))}
-      </StyledMainContentWrapper>
+                              setTimeout(() => {
+                                setDestination(`${name}`);
+                              }, 200);
+                            }
+                          }}>
+                          {name.toUpperCase()}
+                        </StyledButton>
+                      ))}
+                    </StyledButtonWrapper>
+                    <StyledMainHeading>{name.toUpperCase()}</StyledMainHeading>
+                    <StyledDescription>{description}</StyledDescription>
+                    <StyledHorizontalLine />
+                    <StyledFactsWrapper>
+                      <StyledFactBox>
+                        <StyledFactHeading>AVG. DISTANCE</StyledFactHeading>
+                        <StyedFactText>{distance}</StyedFactText>
+                      </StyledFactBox>
+                      <StyledFactBox>
+                        <StyledFactHeading>EST. TRAVEL TIME</StyledFactHeading>
+                        <StyedFactText>{travel}</StyedFactText>
+                      </StyledFactBox>
+                    </StyledFactsWrapper>
+                  </StyledSubSectionWrapper>
+                </StyledSectionWrapper>
+              </>
+            ))}
+        </StyledMainContentWrapper>
+      </AnimateMainContent>
     </>
   );
 }

@@ -7,6 +7,7 @@ import background from "/public/crew/background-crew-desktop.jpg";
 import { useState } from "react";
 import Image from "next/image";
 import { breakpoints } from "../../../utils/breakpoints";
+import AnimateMainContent from "@/components/AnimateMainContent.js";
 
 const StyledMainContentWrapper = styled.div`
   display: flex;
@@ -262,61 +263,63 @@ export default function Crew() {
   return (
     <>
       <Background mobileSrc={background.src} />
-      <title>SpaceTourism | Crew</title>
-      <StyledMainContentWrapper
-        onTouchStart={(event) => {
-          onTouchStart(event);
-        }}
-        onTouchMove={(event) => {
-          onTouchMove(event);
-        }}
-        onTouchEnd={() => {
-          onTouchEnd();
-        }}>
-        <StyledParagraph>
-          <span>03</span>MEET YOUR CREW
-        </StyledParagraph>
-        <StyledMainSectionWrapper $isVisible={isVisible}>
-          {data.crew
-            .filter(({ name }) => name === crewMember)
-            .map(({ name, images, role, bio }) => (
-              <>
-                <StyledSubSectionWrapper>
-                  <StyledTagLine $isVisible={isVisible}>
-                    {role.toUpperCase()}
-                  </StyledTagLine>
-                  <StyledMainHeading>{name.toUpperCase()}</StyledMainHeading>
-                  <StyledDescription>{bio}</StyledDescription>
+      <AnimateMainContent>
+        <title>SpaceTourism | Crew</title>
+        <StyledMainContentWrapper
+          onTouchStart={(event) => {
+            onTouchStart(event);
+          }}
+          onTouchMove={(event) => {
+            onTouchMove(event);
+          }}
+          onTouchEnd={() => {
+            onTouchEnd();
+          }}>
+          <StyledParagraph>
+            <span>03</span>MEET YOUR CREW
+          </StyledParagraph>
+          <StyledMainSectionWrapper $isVisible={isVisible}>
+            {data.crew
+              .filter(({ name }) => name === crewMember)
+              .map(({ name, images, role, bio }) => (
+                <>
+                  <StyledSubSectionWrapper>
+                    <StyledTagLine $isVisible={isVisible}>
+                      {role.toUpperCase()}
+                    </StyledTagLine>
+                    <StyledMainHeading>{name.toUpperCase()}</StyledMainHeading>
+                    <StyledDescription>{bio}</StyledDescription>
 
-                  <StyledButtonWrapper>
-                    {data.crew.map((crew, index) => (
-                      <StyledButton
-                        $active={crew.name === crewMember}
-                        key={index}
-                        onClick={() => {
-                          if (crew.name !== crewMember) {
-                            handleAnimation();
+                    <StyledButtonWrapper>
+                      {data.crew.map((crew, index) => (
+                        <StyledButton
+                          $active={crew.name === crewMember}
+                          key={index}
+                          onClick={() => {
+                            if (crew.name !== crewMember) {
+                              handleAnimation();
 
-                            setTimeout(() => {
-                              setCrewMember(`${crew.name}`);
-                            }, 200);
-                          }
-                        }}></StyledButton>
-                    ))}
-                  </StyledButtonWrapper>
-                </StyledSubSectionWrapper>
-                <StyledImageWrapper>
-                  <Image
-                    src={images.png}
-                    alt={`Photo of Crew Member ${name}`}
-                    fill
-                    style={{ objectFit: "contain" }}
-                  />
-                </StyledImageWrapper>
-              </>
-            ))}
-        </StyledMainSectionWrapper>
-      </StyledMainContentWrapper>
+                              setTimeout(() => {
+                                setCrewMember(`${crew.name}`);
+                              }, 200);
+                            }
+                          }}></StyledButton>
+                      ))}
+                    </StyledButtonWrapper>
+                  </StyledSubSectionWrapper>
+                  <StyledImageWrapper>
+                    <Image
+                      src={images.png}
+                      alt={`Photo of Crew Member ${name}`}
+                      fill
+                      style={{ objectFit: "contain" }}
+                    />
+                  </StyledImageWrapper>
+                </>
+              ))}
+          </StyledMainSectionWrapper>
+        </StyledMainContentWrapper>
+      </AnimateMainContent>
     </>
   );
 }

@@ -14,16 +14,26 @@ const StyledBurgerMenu = styled(Burgermenu)`
 `;
 
 const StyledWrapper = styled.div`
-  width: 60vw;
-  min-height: 100vh;
-  position: fixed;
-  right: 0;
-  top: 0;
-  -webkit-backdrop-filter: blur(40px) contrast(105%);
-  backdrop-filter: blur(40px) contrast(105%);
   transform: ${({ $show }) => ($show ? "translateX(0)" : "translateX(100%)")};
   transition: transform 500ms ease-in-out;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
   z-index: 1;
+
+  & > div {
+    width: 60vw;
+    min-height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    -webkit-backdrop-filter: blur(40px) contrast(105%);
+    backdrop-filter: blur(40px) contrast(105%);
+    transform: ${({ $show }) => ($show ? "translateX(0)" : "translateX(100%)")};
+    transition: transform 500ms ease-in-out;
+    z-index: 2;
+  }
 
   & > nav > a {
     display: block;
@@ -156,15 +166,24 @@ export default function Navigation() {
               setShowNav(true);
             }}
           />
-          <StyledWrapper $show={showNav}>
-            <StyledCloseIcon
-              onClick={() => {
-                setShowNav(false);
-              }}
-            />
-            <StyledNav>
-              <LinkList />
-            </StyledNav>
+          <StyledWrapper
+            onClick={() => {
+              setShowNav(!showNav);
+            }}
+            $show={showNav}>
+            <div
+              onClick={(event) => {
+                event.stopPropagation();
+              }}>
+              <StyledCloseIcon
+                onClick={() => {
+                  setShowNav(false);
+                }}
+              />
+              <StyledNav>
+                <LinkList />
+              </StyledNav>
+            </div>
           </StyledWrapper>
         </>
       ) : (

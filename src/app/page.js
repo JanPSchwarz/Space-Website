@@ -7,6 +7,7 @@ import { useState } from "react";
 import { breakpoints } from "/utils/breakpoints";
 import Link from "next/link";
 import Background from "../components/Background.js";
+import AnimateMainContent from "@/components/AnimateMainContent.js";
 
 const StyledHeroWrapper = styled.div`
   display: flex;
@@ -120,34 +121,36 @@ export default function Home() {
         tabletSrc={tabletBackground.src}
         desktopSrc={desktopBackground.src}
       />
-      <StyledHeroWrapper>
-        <StyledTextWrapper>
-          <StyledTagline>SO, YOU WANT TO TRAVEL TO</StyledTagline>
-          <StyledHeading>SPACE</StyledHeading>
-          <StyledParagraph>
-            Let’s face it; if you want to go to space, you might as well
-            genuinely go to outer space and not hover kind of on the edge of it.
-            Well sit back, and relax because we’ll give you a truly out of this
-            world experience!
-          </StyledParagraph>
-        </StyledTextWrapper>
+      <AnimateMainContent>
+        <StyledHeroWrapper>
+          <StyledTextWrapper>
+            <StyledTagline>SO, YOU WANT TO TRAVEL TO</StyledTagline>
+            <StyledHeading>SPACE</StyledHeading>
+            <StyledParagraph>
+              Let’s face it; if you want to go to space, you might as well
+              genuinely go to outer space and not hover kind of on the edge of
+              it. Well sit back, and relax because we’ll give you a truly out of
+              this world experience!
+            </StyledParagraph>
+          </StyledTextWrapper>
 
-        <StyledLink
-          href={"/destination"}
-          $hover={showButtonShadow}
-          onPointerOver={(event) => {
-            if (event.pointerType === "mouse") {
-              setShowButtonShadow(true);
-            }
-          }}
-          onPointerOut={(event) => {
-            if (event.pointerType === "mouse") {
-              setShowButtonShadow(false);
-            }
-          }}>
-          EXPLORE
-        </StyledLink>
-      </StyledHeroWrapper>
+          <StyledLink
+            href={"/destination"}
+            $hover={showButtonShadow}
+            onPointerOver={(event) => {
+              if (event.pointerType === "mouse") {
+                setShowButtonShadow(true);
+              }
+            }}
+            onPointerOut={(event) => {
+              if (event.pointerType === "mouse") {
+                setShowButtonShadow(false);
+              }
+            }}>
+            EXPLORE
+          </StyledLink>
+        </StyledHeroWrapper>
+      </AnimateMainContent>
     </>
   );
 }

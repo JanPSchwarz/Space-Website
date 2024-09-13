@@ -16,6 +16,7 @@ const StyledHeader = styled.header`
   top: 0;
   min-height: 80px;
   padding: 0 1.5rem;
+  z-index: 2;
 
   @media ${breakpoints.tablet} {
     padding: 0;

@@ -1,8 +1,10 @@
 # Frontend Mentor - Space tourism website solution
 
-This is a solution to the [Space tourism website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/space-tourism-multipage-website-gRWj1URZ3). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+Here is my solution to the [Space tourism website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/space-tourism-multipage-website-gRWj1URZ3)
 
-### The challenge
+Frontend Mentor provided me with professional Figma Designs, data in JSON and pictures.
+
+### The Challenge
 
 Users should be able to:
 
@@ -12,10 +14,7 @@ Users should be able to:
 
 ## Screenshots
 
-<img src="public/screenshots/01 Home - iPhone.app.png" width="200"/>
-<img src="public/screenshots/02 Destination - iPad.app.png" width="300"/>
-<img src="public/screenshots/04 Technology - iphone.png" width="200"/>
-<img src="public/screenshots/03 Crew - Desktop.app.png" width="500"/>
+<img src="public/screenshots/Collection.png" width="700"/>
 
 ### Links
 
@@ -24,6 +23,8 @@ Users should be able to:
 ### Built with
 
 - [Next.js](https://nextjs.org/) 14.2.7 - App Router
+  - including [React](https://react.dev/)
 - [Styled Components](https://styled-components.com/) - For styles
 - Flexbox
 - Mobile-first workflow
+- Deployed over [Vercel](https://vercel.com/)

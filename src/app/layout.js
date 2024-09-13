@@ -11,10 +11,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <GlobalStyles />
       <body>
-        <StyledComponentsRegistry>
-          <Header />
-          {children}
-        </StyledComponentsRegistry>
+        <Header />
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
   );
