@@ -12,6 +12,12 @@ Users should be able to:
 - See hover states for all interactive elements on the page
 - View each page and be able to toggle between the tabs to see new information
 
+I added some extra features on my behalf:
+
+- swipe on mobiles to switch between sub-menus
+- button feedback on mobiles when there is no hover
+- global page transitions
+
 ## Screenshots
 
 <img src="public/screenshots/Collection.png" width="700"/>
@@ -25,6 +31,7 @@ Users should be able to:
 - [Next.js](https://nextjs.org/) 14.2.7 - App Router
   - including [React](https://react.dev/)
 - [Styled Components](https://styled-components.com/) - For styles
-- Flexbox
+- [Framer-Motion](https://www.framer.com/motion/) for page transitions
 - Mobile-first workflow
+- Flexbox
 - Deployed over [Vercel](https://vercel.com/)
