@@ -128,9 +128,6 @@ export default function Navigation() {
   useEffect(() => {
     function isMobile() {
       if (window.innerWidth >= 768) setisMobile(false);
-      else {
-        setisMobile(true);
-      }
     }
 
     isMobile();

@@ -1,9 +1,10 @@
 "use client";
 
 import styled from "styled-components";
-import Logo from "../..//public/shared/logo.svg";
+import Logo from "../../public/shared/logo.svg";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import Navigation from "./Navigation.js";
 import { breakpoints } from "../../utils/breakpoints";
@@ -39,19 +40,29 @@ const StyledHeader = styled.header`
 `;
 
 const StyledLogo = styled(Logo)`
-  transform: scale(0.8);
+  width: 38px;
+  height: auto;
   align-self: center;
   cursor: pointer;
 
   @media ${breakpoints.tablet} {
-    transform: none;
+    width: 48px;
+    height: auto;
     margin: 0 1.5rem;
   }
 `;
 
 export default function Header() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const path = usePathname();
   const router = useRouter();
+
+  if (!isMounted) return null;
 
   return (
     <StyledHeader>
